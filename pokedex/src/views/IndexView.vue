@@ -1,23 +1,37 @@
 <script setup>
     import {ref, onMounted} from 'vue'
     import pokeAPI from '@/services/services.js'
-    import SingleCardComp from '@/components/SingleCardComp.vue'
-    
-    const aPokemonIds = ref([])
+    import MultipleCardsComp from '@/components/MultipleCardsComp.vue'
 
     onMounted(() => {
-        console.log("IndexView Mounted")
         // Obtenir el número de cartes pokemon existents a l'API
-        pokeAPI.getPokemonCount().then((response) => {
-            const PokemonCount = response.data.count
-            // obtenir 10 números a l'atzar i no repetits
-            do {
-                let PokemonId = Math.floor(Math.random() * PokemonCount)
-                if(!(aPokemonIds.value.includes(PokemonId))){
-                    aPokemonIds.value.push(PokemonId)
-                } 
-            } while (aPokemonIds.value.length < 10);
-            console.log(aPokemonIds.value)
+        pokeAPI.getPokemonsTotalCount().then((response) => {
+            //Restem 10 al valor total per evitar que surti un id massa alt i es mostrin menys de 10 cartes
+            const Count = response.data.count - 10
+            // obtenir 1 número a l'atzar per obtenir 10 cartes pokemon
+            const Id = Math.floor(Math.random() * Count)
+            // Obtenir informació bàsica de les 10 cartes
+            pokeAPI.get10PokemonsBasic( Id ).then((response) => {
+                // console.log(response.data.results)
+                const PokesBasic = response.data.results
+                let PokesInfoComplet = new Array()
+                // Obtenir informació completa de totes les cartes
+                for (let index = 0; index < PokesBasic.length; index++) {
+                    pokeAPI.getPokemonInfoComplet( PokesBasic[index].name ).then((response) => {
+                        PokesInfoComplet.push({
+                            "id": response.data.id,
+                            "nom": response.data.name,
+                            "imatgeFront": response.data.sprites.front_default,
+                            "imatgeBack": response.data.sprites.back_default,
+                            "atac": response.data.stats[1].base_stat,
+                            "defensa": response.data.stats[2].base_stat,
+                            "tipus": response.data.types
+                        })
+                        //Memoritzar la informació en el localStorage
+                        localStorage.setItem("PokemonsInfo", JSON.stringify(PokesInfoComplet));
+                    })
+                }
+            })
         })
     })
 </script>
@@ -32,9 +46,7 @@
         </div>
         <section>
             <div id="card-table">
-                <div v-for="Id in aPokemonIds" :key="Id">
-                    <SingleCardComp :pokemonId="Id" />
-                </div>
+                <MultipleCardsComp />
             </div>
         </section>
         <section>

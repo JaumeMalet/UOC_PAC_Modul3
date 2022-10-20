@@ -15,7 +15,7 @@ h3 {text-align:center; color:var(--textcolor);}
 nav {display:grid; grid-template-columns:repeat(3, 1fr); justify-items:center; align-items:center; padding-bottom:6px; border-bottom:1px solid darkblue;}
 
 #back {text-align:center; margin-top:12px; text-decoration:none;}
-#card-table {display:grid; grid-template-columns:repeat(5, 1fr); justify-items:center;}
+#card-table section {display:grid; grid-template-columns:repeat(5, 1fr); justify-items:center;}
 #combat input {padding:6px 24px; border-radius:6px; background-color:red;}
 #pokedex input {padding:6px 24px; border-radius:6px; background-color:wheat;}
 #loading {text-align:center;}
@@ -39,29 +39,29 @@ nav {display:grid; grid-template-columns:repeat(3, 1fr); justify-items:center; a
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
 	nav {display:grid; grid-template-columns:repeat(4, 1fr);} 
-	#card-table {display:grid; grid-template-columns:repeat(5, 1fr);}
+	#card-table section {display:grid; grid-template-columns:repeat(5, 1fr);}
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 1200px) {
 	nav {display:grid; grid-template-columns:repeat(4, 1fr);} 
-	#card-table {display:grid; grid-template-columns:repeat(5, 1fr);}
+	#card-table section {display:grid; grid-template-columns:repeat(5, 1fr);}
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 992px) {
 	nav {display:grid; grid-template-columns:repeat(4, 1fr);} 
-	#card-table {display:grid; grid-template-columns:repeat(4, 1fr);}
+	#card-table section {display:grid; grid-template-columns:repeat(4, 1fr);}
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 768px) {
 	nav {display:grid; grid-template-columns:repeat(1, 1fr);}
 	nav div {margin: 16px;} 
-	#card-table {display:grid; grid-template-columns:repeat(3, 1fr);}
+	#card-table section {display:grid; grid-template-columns:repeat(3, 1fr);}
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 	nav {display:grid; grid-template-columns:repeat(1, 1fr);}
 	nav div {margin: 16px;} 
-	#card-table {display:grid; grid-template-columns:repeat(1, 1fr);}
+	#card-table section {display:grid; grid-template-columns:repeat(1, 1fr);}
 }
 
 /*Tema clar/fosc segons estigui definit en el sistema*/

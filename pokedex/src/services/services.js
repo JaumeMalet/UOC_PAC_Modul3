@@ -10,13 +10,18 @@ const pokeAPI = axios.create({
 })
 
 export default {
-  //Obtenir informació de un Pokemon
-  getPokemon( id ) {
-    return pokeAPI.get(`/api/v2/pokemon/${id}`);
+  //Obtenir informació bàsica de 10 pokemons a partir del 'id' del paràmetre
+  get10PokemonsBasic( id ) {
+    return pokeAPI.get(`/api/v2/pokemon?limit=10&offset=${id}`);
   },
-  
-  //Obtenir total de cartes Pokemon
-  getPokemonCount() {
+
+  //Obtenir informació completa de 1 pokemon a partir del 'name'
+  getPokemonInfoComplet( name ) {
+    return pokeAPI.get(`/api/v2/pokemon/${name}`);
+  },
+
+  //Obtenir el número total de cartes Pokemon.
+  getPokemonsTotalCount() {
     return pokeAPI.get(`/api/v2/pokemon?limit=100000&offset=0`);
   }
 }
