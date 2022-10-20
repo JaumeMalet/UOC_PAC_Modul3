@@ -29,6 +29,7 @@
                         })
                         //Memoritzar la informació en el localStorage
                         localStorage.setItem("PokemonsInfo", JSON.stringify(PokesInfoComplet));
+                        console.log("pp1")
                     })
                 }
             })

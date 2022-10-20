@@ -9,7 +9,7 @@
 <template>
     <section>
       <!-- Plantilla d'una carta Pokemon -->
-      <div class="card" v-for="PokeInfo in PokemonsInfo" :key="PokeInfo.Id">
+      <div class="card" @click="$router.push({name:'info',params:{Id:PokeInfo.id}})" v-for="PokeInfo in PokemonsInfo" :key="PokeInfo.Id">
         <h2>{{ PokeInfo.nom }}</h2>
         <img alt="" :src="PokeInfo.imatgeFront" class="card-imatge" />
         <h3 class="card-atac">Atac: {{ PokeInfo.atac }} </h3>
