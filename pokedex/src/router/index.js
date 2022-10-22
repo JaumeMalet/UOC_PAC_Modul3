@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import IndexView from '@/views/IndexView.vue'
-import InfoView from '@/views/InfoView.vue'
+import HomeView from '@/views/HomeView.vue'
+import CardView from '@/views/CardView.vue'
 import CombatView from '@/views/CombatView.vue'
 
 const router = createRouter({
@@ -8,13 +8,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: IndexView
+      name: 'home',
+      component: HomeView
     },
     {
-      path: '/info/:Id',
-      name: 'info',
-      component: InfoView
+      path: '/card/:Id',
+      name: 'card',
+      component: CardView
     },
     {
       path: '/combat',
