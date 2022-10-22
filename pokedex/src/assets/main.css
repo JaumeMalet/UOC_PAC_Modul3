@@ -38,17 +38,17 @@ nav {display:grid; grid-template-columns:repeat(3, 1fr); justify-items:center; a
 /* Responsive. Desktop-first*/
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-	nav {display:grid; grid-template-columns:repeat(4, 1fr);} 
+	nav {display:grid; grid-template-columns:repeat(3, 1fr);} 
 	#card-table {display:grid; grid-template-columns:repeat(5, 1fr);}
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 1200px) {
-	nav {display:grid; grid-template-columns:repeat(4, 1fr);} 
+	nav {display:grid; grid-template-columns:repeat(3, 1fr);} 
 	#card-table {display:grid; grid-template-columns:repeat(5, 1fr);}
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 992px) {
-	nav {display:grid; grid-template-columns:repeat(4, 1fr);} 
+	nav {display:grid; grid-template-columns:repeat(3, 1fr);} 
 	#card-table {display:grid; grid-template-columns:repeat(4, 1fr);}
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
