@@ -109,7 +109,7 @@
         <section>
             <div id="card-table">
                 <div class="card" v-for="PokeInfo in FiltrarPokemons" v-bind:key="PokeInfo.Id"> 
-                    <CardComp v-bind:PInfo = "PokeInfo" v-on:response="CardComponentReturn" />
+                    <CardComp v-bind:PInfo = "PokeInfo" />
                 </div>
             </div>
         </section>  
