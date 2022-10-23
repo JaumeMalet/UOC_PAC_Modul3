@@ -7,14 +7,24 @@
 /* Sobreescriure valor variables CSS segons la classe*/
 body.clar {--backgroundcolor:#ffff00; --cardcolor:yellowgreen; --textcolor:darkblue}
 body.fosc {--backgroundcolor:gray ; --cardcolor:darkolivegreen; --textcolor:whitesmoke}
+main.clar {--backgroundcolor:#ffff00; --cardcolor:yellowgreen; --textcolor:darkblue}
+main.fosc {--backgroundcolor:gray ; --cardcolor:darkolivegreen; --textcolor:whitesmoke}
 
 body {background-color:var(--backgroundcolor);}
+main {background-color:var(--backgroundcolor);}
+main button {border-style:none; background-color:var(--backgroundcolor); cursor:pointer;}
+
+fieldset label {margin: 0px 4px;}
 h1 {text-align:center; font-size:3em; color:var(--textcolor); margin:24px;}
 h2 {text-align:center; margin-top:12px; color:var(--textcolor);}
 h3 {text-align:center; color:var(--textcolor);}
 nav {display:grid; grid-template-columns:repeat(3, 1fr); justify-items:center; align-items:center; padding-bottom:6px; border-bottom:1px solid darkblue;}
+nav a {text-decoration:none; border-style:outset; border-width:2px; padding:6px 24px; border-radius:6px;}
+nav a#home {background-color:wheat;}
+nav a#combat {background-color:red;}
 
 #back {text-align:center; margin:auto; margin-top:12px; display:block;}
+#buscar input {margin: 0px 5px}
 #card-table {display:grid; grid-template-columns:repeat(5, 1fr); justify-items:center;}
 #combat input {padding:6px 24px; border-radius:6px; background-color:red;}
 #pokedex input {padding:6px 24px; border-radius:6px; background-color:wheat;}
@@ -66,8 +76,8 @@ nav {display:grid; grid-template-columns:repeat(3, 1fr); justify-items:center; a
 
 /*Tema clar/fosc segons estigui definit en el sistema*/
 @media (prefers-color-scheme: light){
-	body{--backgroundcolor:#ffff00; --cardcolor:yellowgreen; --textcolor:darkblue}
+	main {--backgroundcolor:#ffff00; --cardcolor:yellowgreen; --textcolor:darkblue}
 }
 @media (prefers-color-scheme: dark){
-	body{--backgroundcolor:gray ; --cardcolor:darkolivegreen; --textcolor:whitesmoke}
+	main {--backgroundcolor:gray ; --cardcolor:darkolivegreen; --textcolor:whitesmoke}
 }
