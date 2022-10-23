@@ -50,11 +50,6 @@
         bCarregat.value = true
     }
 
-    //Declaració funció de l'emit del component CardComponent
-    const CardComponentReturn = (text) => {
-        // console.log(text)
-    }
-
     //Declaració funció de filtre entre els noms de les cartes visibles segons variable 'BuscarPokemon'
     //Utilitzem 'computed' perquè volem que sigui reactiu a qualsevol canvi a la variable
     const FiltrarPokemons = computed (() => {
