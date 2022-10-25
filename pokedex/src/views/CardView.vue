@@ -1,7 +1,9 @@
 <script setup>
-    import {ref, computed} from 'vue'
+    //Imports
+    import {ref} from 'vue'
     import TemaComp from '@/components/TemaComp.vue'
 
+    //Definició i inicialització de variables
     const PokemonsInfo = ref([])
     const Id = ref(0)
     const Tipus = ref("")
@@ -11,13 +13,15 @@
     const ImatgeBackOk = ref(true)
 
     //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
-    //Serveix perquè es vegi tot el background-color del mateix color
+    //Serveix perquè es vegi tot el 'background-color' del mateix color
     document.body.className = Tema.value
 
     //Recuperar informació dels pokemons guardada en localStorage
     PokemonsInfo.value = JSON.parse(localStorage.getItem("PokemonsInfo"))
+
     //Obtenir l'Id del pokemon de la URL
     const PokeId = window.location.href.split('/')[window.location.href.split('/').length - 1]
+
     //Obtenir l'index de l'array PokemonsInfo que coincideix amb la Id del pokemon de la URL
     for (let index = 0; index < PokemonsInfo.value.length; index++) {
         if(Number(PokemonsInfo.value[index].id) === Number(PokeId)){
@@ -28,13 +32,14 @@
             break   //Un cop s'ha trobat no cal continuar fent el bucle
         }
     }
+
     //Obtenir text amb tots els noms del tipus separats per comes del pokemon determinat per l'Id
     for (let index = 0; index < PokemonsInfo.value[Id.value].tipus.length; index++) {
         if(index > 0) Tipus.value += ", "   //Afegim coma entre noms tipus
         Tipus.value += PokemonsInfo.value[Id.value].tipus[index].type.name
     }
 
-    //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
+    //Indicador que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
     bCarregat.value = true
 
     //Senyal generat per un canvi en els radio buttons del Tema
@@ -48,7 +53,6 @@
         //Actualitzem la variable 'Tema' d'aquesta vista
         Tema.value = tema
     }
-
 </script>
 
 <template>
@@ -56,14 +60,14 @@
         <header>
             <nav>
                 <div>
-                    <!-- Botons -->
+                    <!-- Botons >> NO -->
                 </div>
                 <div>
                     <!-- Selecció del tema -->
                     <TemaComp @response="CanviTema" />
                 </div>
                 <div>
-                    <!-- buscar -->
+                    <!-- buscar >> NO -->
                 </div>    
             </nav>
         </header>    

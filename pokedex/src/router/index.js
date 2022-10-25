@@ -1,8 +1,10 @@
+//Imports
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import CardView from '@/views/CardView.vue'
 import CombatView from '@/views/CombatView.vue'
 
+//Router de les diferents vistes
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

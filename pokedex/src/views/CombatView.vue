@@ -1,18 +1,19 @@
 <script setup>
+    //Imports
     import {ref, onMounted} from 'vue'
     import pokeAPI from '@/services/services.js'
     import CardFlipComp from '@/components/CardFlipComp.vue'
     import TemaComp from '@/components/TemaComp.vue'
 
+    //Definició i inicialització de variables
     const PokemonsInfoComplet = ref([])
     const bCarregat = ref(false)
-    const Tema = ref(localStorage.getItem('Tema'))
-    
+    const Tema = ref(localStorage.getItem('Tema'))   
     let flipped_cards_index = 0
     let flipped_cards_array = new Array()
 
     //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
-    //Serveix perquè es vegi tot el background-color del mateix color
+    //Serveix perquè es vegi tot el 'background-color' del mateix color
     document.body.className = Tema.value
    
     //Carregar l'informació de les cartes pokemon del localStorage
@@ -20,11 +21,10 @@
         PokemonsInfoComplet.value = JSON.parse(localStorage.getItem("PokemonsInfo"))
     }
 
+    //Accions que es realitzen un cop s'ha construit la pàgina
     onMounted( () => {
         //Si no tenim l'informació de les cartes pokemon >> n'obtenim de noves
-        if(!(PokemonsInfoComplet.value.length > 0))
-        {
-            // PokemonsInfoComplet.value = new Array()
+        if(!(PokemonsInfoComplet.value.length > 0)) {
             // Obtenir el número de cartes pokemon existents a l'API
             pokeAPI.getPokemonsTotalCount().then((response) => {
                 //Restem 10 al valor total per evitar que surti un id massa alt i es mostrin menys de 10 cartes
@@ -38,8 +38,10 @@
                 })
             })    
         }
-        //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
-        bCarregat.value = true
+        else {
+            //Indicador que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
+            bCarregat.value = true
+        }
     })
 
     //Declaració funció per obtenir l'informació completa de totes les cartes
@@ -61,6 +63,8 @@
         }
         //Memoritzar la informació en el localStorage
         localStorage.setItem("PokemonsInfo", JSON.stringify(PokemonsInfoComplet.value))
+        //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
+        bCarregat.value = true
     }
 
     //Senyal generat per un canvi en els radio buttons del Tema
@@ -97,7 +101,7 @@
         }
     }
 
-    //Definició de la funció que es realitza al fer click en el botó de Barrejar!
+    //Definició de la funció que es realitza al fer click en el botó de 'Barrejar!'
     const Barreja = () => {
         //Reset a l'informació obtinguda de les cartes actuals >> al recarregar la pàgina s'obtindrà l'informació de noves cartes
         PokemonsInfoComplet.value = new Array()
@@ -122,16 +126,18 @@
                     <TemaComp @response="CanviTema" />
                 </div>
                 <div>
-                    <!-- buscar -->
+                    <!-- buscar >> NO -->
                 </div>    
             </nav>
         </header>
         <section class="title">
             <h1>Combat Pokémon</h1>
         </section>
+        <!-- Imatge 'carregant' -->
         <div id="loading" v-if="!bCarregat">
             <img alt="loading" src="@/assets/img/loading.gif" />
         </div>
+        <!-- Secció on es mostren les cartes -->
         <section>
             <div id="card-table">
                 <div v-for="PokeInfo in PokemonsInfoComplet" v-bind:key="PokeInfo.Id"> 

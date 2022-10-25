@@ -1,6 +1,8 @@
 <script setup>
+    //Imports
     import {ref} from 'vue'
 
+    //Definició i inicialització de variables
     const ImatgeOk = ref(true)
     const nomSize = ref("")
 
@@ -15,11 +17,10 @@
     //No hi ha imatge per al pokemon >> mostrar imatge 'void.png'
     if(typeof props.PInfo.imatgeFront !== 'string') ImatgeOk.value = false
 
-    //Si la longitud del nom del pokemon supera un límit, afegim la classe per reduïr la mida del text
+    //Si la longitud del nom del pokemon supera un límit, afegim la classe 'nom_' per reduïr la mida del text
     if(props.PInfo.nom.length > 9) nomSize.value="nomL"
     if(props.PInfo.nom.length > 14) nomSize.value="nomM"
     if(props.PInfo.nom.length > 23) nomSize.value="nomS"
-
 </script>
 
 <template>

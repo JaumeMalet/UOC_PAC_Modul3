@@ -1,7 +1,8 @@
 <script setup>
+    //Imports
     import {ref} from 'vue'
     
-    //Inicialitzar variables
+    //Definició i inicialització de variables
     const Tema = ref(localStorage.getItem('Tema'))
 
     //Paràmetres de sortida del component
@@ -16,7 +17,7 @@
 
 <template>
     <fieldset>
-        <!-- mode visualització: clar (per defecte), fosc, sistema. (Utilitzar Local Storage per memoritzar la selecció). -->
+        <!-- mode visualització: clar (per defecte)/fosc/sistema. (Utilitzar Local Storage per establir valor de la selecció). -->
         <legend>Tema</legend>
         <input type="radio" name="radio_tema" id="radio_clar" value="clar" v-model="Tema" v-on:change="CanviTema" checked>
         <label for="radio_clar">Clar</label>

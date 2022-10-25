@@ -1,16 +1,18 @@
 <script setup>
+    //Imports
     import {ref, onMounted, computed} from 'vue'
     import pokeAPI from '@/services/services.js'
     import CardComp from '@/components/CardComp.vue'
     import TemaComp from '@/components/TemaComp.vue'
 
+    //Definició i inicialització de variables
     const PokemonsInfoComplet = ref([])
     const bCarregat = ref(false)
     const BuscarPokemon = ref("")
     const Tema = ref(localStorage.getItem('Tema'))
 
     //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
-    //Serveix perquè es vegi tot el background-color del mateix color
+    //Serveix perquè es vegi tot el 'background-color' del mateix color
     document.body.className = Tema.value
 
     //Carregar l'informació de les cartes pokemon del localStorage
@@ -18,11 +20,10 @@
         PokemonsInfoComplet.value = JSON.parse(localStorage.getItem("PokemonsInfo"))
     }
 
+    //Accions que es realitzen un cop s'ha construit la pàgina
     onMounted( () => {
         //Si no tenim l'informació de les cartes pokemon >> n'obtenim de noves
-        if(!(PokemonsInfoComplet.value.length > 0))
-        {
-            // PokemonsInfoComplet.value = new Array()
+        if(!(PokemonsInfoComplet.value.length > 0)) {
             // Obtenir el número de cartes pokemon existents a l'API
             pokeAPI.getPokemonsTotalCount().then((response) => {
                 //Restem 10 al valor total per evitar que surti un id massa alt i es mostrin menys de 10 cartes
@@ -36,8 +37,10 @@
                 })
             })    
         }
-        //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
-        bCarregat.value = true
+        else {
+            //Indicador que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
+            bCarregat.value = true
+        }
     })
 
     //Declaració funció per obtenir l'informació completa de totes les cartes
@@ -59,15 +62,14 @@
         }
         //Memoritzar la informació en el localStorage
         localStorage.setItem("PokemonsInfo", JSON.stringify(PokemonsInfoComplet.value))
+        //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
+        bCarregat.value = true
     }
 
     //Declaració funció de filtre entre els noms de les cartes visibles segons variable 'BuscarPokemon'
-    //Utilitzem 'computed' perquè volem que sigui reactiu a qualsevol canvi a la variable
+    //Utilitzem 'computed' perquè volem que sigui reactiu a qualsevol canvi en el text entrat a la variable
     const FiltrarPokemons = computed (() => {
-        //Retornar en l'array 'PokemonsInfoComplet' només els pokemon que el seu nom contingui el text
-        //de la variable 'BuscarPokemon'
-        // console.log(BuscarPokemon.value)
-        // return PokemonsInfoComplet.value
+        //Retornar en l'array 'PokemonsInfoComplet' només els pokemon que el seu nom contingui el text de la variable 'BuscarPokemon'
         return PokemonsInfoComplet.value.filter((PokemonInfoComplet) => {
             return PokemonInfoComplet.nom.toLowerCase().includes(BuscarPokemon.value.toLowerCase())
         })
@@ -76,7 +78,6 @@
     //Senyal generat per un canvi en els radio buttons del Tema
     //Memoritzar el tema seleccionat al localStorage si es clicka sobre algun dels radio buttons per canviar el tema
     const CanviTema = (tema) => {
-        // console.log(tema)
         localStorage.setItem("Tema", tema)
         //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
         //Serveix perquè es vegi tot el background-color del mateix color
@@ -85,7 +86,7 @@
         Tema.value = tema
     }
 
-    //Definició de la funció que es realitza al fer click en el botó de Barrejar!
+    //Definició de la funció que es realitza al fer click en el botó de 'Barrejar!'
     const Barreja = () => {
         //Reset a l'informació obtinguda de les cartes actuals >> al recarregar la pàgina s'obtindrà l'informació de noves cartes
         PokemonsInfoComplet.value = new Array()
@@ -119,9 +120,11 @@
         <section class="title">
             <h1>Pokedex</h1>
         </section>
+        <!-- Imatge 'carregant' -->
         <div id="loading" v-if="!bCarregat">
             <img alt="loading" src="@/assets/img/loading.gif" />
         </div>
+        <!-- Secció on es mostren les cartes -->
         <section>
             <div id="card-table">
                 <div class="card" v-for="PokeInfo in FiltrarPokemons" v-bind:key="PokeInfo.Id"> 

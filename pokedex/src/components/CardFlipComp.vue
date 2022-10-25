@@ -1,7 +1,8 @@
 <script setup>
+    //Imports
     import {ref} from 'vue'
     
-    //Inicialitzar variables
+    //Definició i inicialització de variables
     const flip = ref(false)
     const ImatgeOk = ref(true)
     const nomSize = ref("")
@@ -31,7 +32,6 @@
     if(props.PInfo.nom.length > 9) nomSize.value="nomL"
     if(props.PInfo.nom.length > 14) nomSize.value="nomM"
     if(props.PInfo.nom.length > 23) nomSize.value="nomS"
-
 </script>
 
 <template>
