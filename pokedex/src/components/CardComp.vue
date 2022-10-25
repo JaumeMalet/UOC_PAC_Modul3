@@ -2,6 +2,7 @@
     import {ref} from 'vue'
 
     const ImatgeOk = ref(true)
+    const nomSize = ref("")
 
     //Paràmetres d'entrada del component
     const props = defineProps({
@@ -14,13 +15,18 @@
     //No hi ha imatge per al pokemon >> mostrar imatge 'void.png'
     if(typeof props.PInfo.imatgeFront !== 'string') ImatgeOk.value = false
 
+    //Si la longitud del nom del pokemon supera un límit, afegim la classe per reduïr la mida del text
+    if(props.PInfo.nom.length > 9) nomSize.value="nomL"
+    if(props.PInfo.nom.length > 14) nomSize.value="nomM"
+    if(props.PInfo.nom.length > 23) nomSize.value="nomS"
+
 </script>
 
 <template>
     <section>
         <!-- Plantilla d'una carta Pokemon -->
         <div v-on:click="$router.push({name:'card',params:{Id:PInfo.id}})">
-            <h2>{{ PInfo.nom }}</h2>
+            <h2 v-bind:class="nomSize">{{ PInfo.nom }}</h2>
             <img v-if="ImatgeOk" alt="" v-bind:src="PInfo.imatgeFront" class="card-imatge" />
             <img v-else alt="" src="@/assets/img/void.png" class="card-imatge" />
             <h3 class="card-atac">Atac: {{ PInfo.atac }} </h3>
