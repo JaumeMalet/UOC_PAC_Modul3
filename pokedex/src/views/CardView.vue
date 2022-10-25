@@ -6,6 +6,8 @@
     const Tipus = ref("")
     const bCarregat = ref(false)
     const Tema = ref(localStorage.getItem('Tema'))
+    const ImatgeFrontOk = ref(true)
+    const ImatgeBackOk = ref(true)
 
     //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
     //Serveix perquè es vegi tot el background-color del mateix color
@@ -19,6 +21,9 @@
     for (let index = 0; index < PokemonsInfo.value.length; index++) {
         if(Number(PokemonsInfo.value[index].id) === Number(PokeId)){
             Id.value = index
+            //No hi ha imatges per al pokemon >> mostrar imatge 'void.png'
+            if(typeof PokemonsInfo.value[index].imatgeFront !== 'string') ImatgeFrontOk.value = false
+            if(typeof PokemonsInfo.value[index].imatgeBack !== 'string') ImatgeBackOk.value = false
             break   //Un cop s'ha trobat no cal continuar fent el bucle
         }
     }
@@ -35,6 +40,7 @@
     const SetTema = computed (() => {
         localStorage.setItem("Tema", Tema.value)      
     })
+
 </script>
 
 <template>
@@ -78,8 +84,9 @@
             <div class="card_ext">
                 <h2> {{ PokemonsInfo[Id].nom }} </h2>
                 <div id="imatges">
-                    <img alt="" v-bind:src="PokemonsInfo[Id].imatgeFront" />
-                    <img alt="" v-bind:src="PokemonsInfo[Id].imatgeBack" />
+                    <img v-if="ImatgeFrontOk" alt="" v-bind:src="PokemonsInfo[Id].imatgeFront" />
+                    <img v-if="ImatgeBackOk" alt="" v-bind:src="PokemonsInfo[Id].imatgeBack" />
+                    <img v-if="!ImatgeFrontOk && !ImatgeBackOk" alt="" src="@/assets/img/void.png" />
                 </div>
                 <h3>Atac: {{ PokemonsInfo[Id].atac }} </h3>
                 <h3>Defensa: {{ PokemonsInfo[Id].defensa }} </h3>
