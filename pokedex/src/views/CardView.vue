@@ -48,7 +48,7 @@
         <header>
             <nav>
                 <div>
-                    <!-- <RouterLink to="/combat">Combat</RouterLink> -->
+                    <!-- Botons -->
                 </div>
                 <div>
                     <fieldset>
@@ -66,10 +66,8 @@
                         <span>{{ SetTema }}</span>
                     </fieldset>
                 </div>
-                <div id="buscar">
-                    <!-- buscar text entre les 10 cartes carregades i que es veuen en la pàgina. -->
-                    <!-- <label for="buscar">Búsqueda:</label> -->
-                    <!-- <input v-model="search" type="text" placeholder="Nom Pokémon">   -->
+                <div>
+                    <!-- buscar -->
                 </div>    
             </nav>
         </header>    

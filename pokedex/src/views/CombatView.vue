@@ -124,10 +124,8 @@
                         <label for="radio_sistema">Sistema</label>
                     </fieldset>
                 </div>
-                <div id="buscar">
-                    <!-- buscar text entre les 10 cartes carregades i que es veuen en la pàgina. -->
-                    <!-- <label for="buscar">Búsqueda:</label> -->
-                    <!-- <input v-model="search" type="text" placeholder="Nom Pokémon">   -->
+                <div>
+                    <!-- buscar -->
                 </div>    
             </nav>
         </header>
