@@ -2,6 +2,7 @@
     import {ref, onMounted, computed} from 'vue'
     import pokeAPI from '@/services/services.js'
     import CardComp from '@/components/CardComp.vue'
+    import TemaComp from '@/components/TemaComp.vue'
 
     const PokemonsInfoComplet = ref([])
     const bCarregat = ref(false)
@@ -71,14 +72,17 @@
             return PokemonInfoComplet.nom.toLowerCase().includes(BuscarPokemon.value.toLowerCase())
         })
     })
-        
+       
+    //Senyal generat per un canvi en els radio buttons del Tema
     //Memoritzar el tema seleccionat al localStorage si es clicka sobre algun dels radio buttons per canviar el tema
-    const CanviTema = (e) => {
-        //console.log(e.target.value)
-        localStorage.setItem("Tema", e.target.value)
+    const CanviTema = (tema) => {
+        // console.log(tema)
+        localStorage.setItem("Tema", tema)
         //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
         //Serveix perquè es vegi tot el background-color del mateix color
-        document.body.className = e.target.value
+        document.body.className = tema
+        //Actualitzem la variable 'Tema' d'aquesta vista
+        Tema.value = tema
     }
 
     //Definició de la funció que es realitza al fer click en el botó de Barrejar!
@@ -102,18 +106,8 @@
                     <RouterLink to="/combat" id="combat">Combat</RouterLink>
                 </div>
                 <div>
-                    <fieldset>
-                        <!-- mode visualització: clar (per defecte), fosc, sistema. (Utilitzar Local Storage per memoritzar la selecció). -->
-                        <legend>Tema</legend>
-                        <input type="radio" name="radio_tema" id="radio_clar" value="clar" v-model="Tema" v-on:change="CanviTema" checked>
-                        <label for="radio_clar">Clar</label>
-                        
-                        <input type="radio" name="radio_tema" id="radio_fosc" value="fosc" v-model="Tema" v-on:change="CanviTema">
-                        <label for="radio_fosc">Fosc</label>
-                        
-                        <input type="radio" name="radio_tema" id="radio_sistema" value="sistema" v-model="Tema" v-on:change="CanviTema">
-                        <label for="radio_sistema">Sistema</label>
-                    </fieldset>
+                    <!-- Selecció del tema -->
+                    <TemaComp @response="CanviTema" />
                 </div>
                 <div id="buscar">
                     <!-- buscar text entre les 10 cartes carregades i que es veuen en la pàgina. -->

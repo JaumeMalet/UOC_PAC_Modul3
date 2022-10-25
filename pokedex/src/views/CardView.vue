@@ -1,5 +1,6 @@
 <script setup>
     import {ref, computed} from 'vue'
+    import TemaComp from '@/components/TemaComp.vue'
 
     const PokemonsInfo = ref([])
     const Id = ref(0)
@@ -36,10 +37,17 @@
     //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
     bCarregat.value = true
 
-    //Memoritzar el tema seleccionat al localStorage si canvia el valor de la variable 'Tema'
-    const SetTema = computed (() => {
-        localStorage.setItem("Tema", Tema.value)      
-    })
+    //Senyal generat per un canvi en els radio buttons del Tema
+    //Memoritzar el tema seleccionat al localStorage si es clicka sobre algun dels radio buttons per canviar el tema
+    const CanviTema = (tema) => {
+        // console.log(tema)
+        localStorage.setItem("Tema", tema)
+        //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
+        //Serveix perquè es vegi tot el background-color del mateix color
+        document.body.className = tema
+        //Actualitzem la variable 'Tema' d'aquesta vista
+        Tema.value = tema
+    }
 
 </script>
 
@@ -51,20 +59,8 @@
                     <!-- Botons -->
                 </div>
                 <div>
-                    <fieldset>
-                        <!-- mode visualització: clar (per defecte), fosc, sistema. (Utilitzar Local Storage per memoritzar la selecció). -->
-                        <legend>Tema</legend>
-                        <input type="radio" name="radio_tema" id="radio_clar" value="clar" v-model="Tema" checked>
-                        <label for="radio_clar">Clar</label>
-                        
-                        <input type="radio" name="radio_tema" id="radio_fosc" value="fosc" v-model="Tema">
-                        <label for="radio_fosc">Fosc</label>
-                        
-                        <input type="radio" name="radio_tema" id="radio_sistema" value="sistema" v-model="Tema">
-                        <label for="radio_sistema">Sistema</label>
-                        <!-- El següent span és necessari perquè realitzi el 'computed' de la variable 'Tema' -->
-                        <span>{{ SetTema }}</span>
-                    </fieldset>
+                    <!-- Selecció del tema -->
+                    <TemaComp @response="CanviTema" />
                 </div>
                 <div>
                     <!-- buscar -->
