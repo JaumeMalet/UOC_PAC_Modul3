@@ -81,6 +81,7 @@
         document.body.className = e.target.value
     }
 
+    //Definició de la funció que es realitza al fer click en el botó de Barrejar!
     const Barreja = () => {
         //Reset a l'informació obtinguda de les cartes actuals >> al recarregar la pàgina s'obtindrà l'informació de noves cartes
         PokemonsInfoComplet.value = new Array()
