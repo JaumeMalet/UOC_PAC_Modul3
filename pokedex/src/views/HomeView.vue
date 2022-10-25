@@ -12,19 +12,31 @@
     //Serveix perquè es vegi tot el background-color del mateix color
     document.body.className = Tema.value
 
+    //Carregar l'informació de les cartes pokemon del localStorage
+    if(localStorage.getItem("PokemonsInfo") !== null) {
+        PokemonsInfoComplet.value = JSON.parse(localStorage.getItem("PokemonsInfo"))
+    }
+
     onMounted( () => {
-        // Obtenir el número de cartes pokemon existents a l'API
-        pokeAPI.getPokemonsTotalCount().then((response) => {
-            //Restem 10 al valor total per evitar que surti un id massa alt i es mostrin menys de 10 cartes
-            const Count = response.data.count - 10
-            //Obtenir 1 número a l'atzar com ID inicial per obtenir 10 cartes pokemon
-            const Id = Math.floor(Math.random() * Count)
-            //Obtenir informació bàsica de les 10 cartes
-            pokeAPI.get10PokemonsBasic( Id ).then((response) => {
-                //Obtenir informació completa de les 10 cartes
-                getPokemonsComplet(response.data.results)
-            })
-        })    
+        //Si no tenim l'informació de les cartes pokemon >> n'obtenim de noves
+        if(!(PokemonsInfoComplet.value.length > 0))
+        {
+            // PokemonsInfoComplet.value = new Array()
+            // Obtenir el número de cartes pokemon existents a l'API
+            pokeAPI.getPokemonsTotalCount().then((response) => {
+                //Restem 10 al valor total per evitar que surti un id massa alt i es mostrin menys de 10 cartes
+                const Count = response.data.count - 10
+                //Obtenir 1 número a l'atzar com ID inicial per obtenir 10 cartes pokemon
+                const Id = Math.floor(Math.random() * Count)
+                //Obtenir informació bàsica de les 10 cartes
+                pokeAPI.get10PokemonsBasic( Id ).then((response) => {
+                    //Obtenir informació completa de les 10 cartes
+                    getPokemonsComplet(response.data.results)
+                })
+            })    
+        }
+        //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
+        bCarregat.value = true
     })
 
     //Declaració funció per obtenir l'informació completa de totes les cartes
@@ -46,8 +58,6 @@
         }
         //Memoritzar la informació en el localStorage
         localStorage.setItem("PokemonsInfo", JSON.stringify(PokemonsInfoComplet.value))
-        //Flag per indicar que s'ha obtingut l'informació i deixar de mostrar el gif de 'carregant...'
-        bCarregat.value = true
     }
 
     //Declaració funció de filtre entre els noms de les cartes visibles segons variable 'BuscarPokemon'
@@ -70,6 +80,14 @@
         //Serveix perquè es vegi tot el background-color del mateix color
         document.body.className = e.target.value
     }
+
+    const Barreja = () => {
+        //Reset a l'informació obtinguda de les cartes actuals >> al recarregar la pàgina s'obtindrà l'informació de noves cartes
+        PokemonsInfoComplet.value = new Array()
+        localStorage.removeItem("PokemonsInfo")
+        //Tornar a carregar la pàgina
+        window.location.reload();
+    }
 </script>
 
 <template>
@@ -77,6 +95,9 @@
         <header>
             <nav>
                 <div>
+                    <!-- Botó per mostrar 10 cartes noves -->
+                    <button id="barreja" v-on:click="Barreja">Barrejar!</button>
+                    <!-- Botó per anar a la vista del combat -->
                     <RouterLink to="/combat" id="combat">Combat</RouterLink>
                 </div>
                 <div>

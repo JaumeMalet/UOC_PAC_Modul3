@@ -12,7 +12,8 @@ main.fosc {--backgroundcolor:gray ; --cardcolor:darkolivegreen; --textcolor:whit
 
 body {background-color:var(--backgroundcolor);}
 main {background-color:var(--backgroundcolor);}
-main button {border-style:none; background-color:var(--backgroundcolor); cursor:pointer;}
+main button#barreja {margin:0px 25px 0px 0px;}
+main button#back {border-style:none; background-color:var(--backgroundcolor); cursor:pointer;}
 
 fieldset label {margin: 0px 4px;}
 h1 {text-align:center; font-size:3em; color:var(--textcolor); margin:24px;}
@@ -72,6 +73,10 @@ nav a#combat {background-color:red;}
 	nav {display:grid; grid-template-columns:repeat(1, 1fr);}
 	nav div {margin: 16px;} 
 	#card-table {display:grid; grid-template-columns:repeat(1, 1fr);}
+}
+/* Extra-Extra small devices (phones, 243px and down) */
+@media only screen and (max-width: 250px) {
+	main button#barreja {margin:0px 25px 20px 0px;}
 }
 
 /*Tema clar/fosc segons estigui definit en el sistema*/
