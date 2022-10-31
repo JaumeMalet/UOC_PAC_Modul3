@@ -10,10 +10,12 @@
     const bCarregat = ref(false)
     const Tema = ref(localStorage.getItem('Tema'))   
     let flipped_cards_index = 0
+    // ya esta deprecated esta forma de crear array => new Array, se recomienda usar const array = []
     let flipped_cards_array = new Array()
 
     //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
     //Serveix perquè es vegi tot el 'background-color' del mateix color
+    // Muy mala práctica atacar directamente al DOM, para cambiar de clase a un elemento TAG, se debe usar class conditions.
     document.body.className = Tema.value
    
     //Carregar l'informació de les cartes pokemon del localStorage
@@ -90,12 +92,14 @@
             setTimeout(function() { // Executar funció després d'un retard de 0.5s per deixar temps perquè es gira la segona carta.
                 // Missatge resultat del combat:
                 if(Number(flipped_cards_array[1].atac) > Number(flipped_cards_array[2].defensa)) {
+                    // Para un proyecto real, es muy mala práctica  usar alert
                     alert("'" + flipped_cards_array[1].nom + "' ataca i guanya a '" + flipped_cards_array[2].nom + "'");
                 }
                 else {
                     alert("'" + flipped_cards_array[1].nom + "' ataca i perd contra '" + flipped_cards_array[2].nom + "'");
                 }
                 // Recarregar la pàgina de combat
+                // Si estamos creando una SPA (Simple Page Applications) con este comando nos estamos cargando la SPA, el objetivo de las SPA es nunca recargar la web.
                 window.location.reload();
             }, 500)
         }

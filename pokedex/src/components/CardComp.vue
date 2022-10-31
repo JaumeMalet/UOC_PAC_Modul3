@@ -28,6 +28,7 @@
         <!-- Plantilla d'una carta Pokemon -->
         <div v-on:click="$router.push({name:'card',params:{Id:PInfo.id}})">
             <h2 v-bind:class="nomSize">{{ PInfo.nom }}</h2>
+            <!-- acostumbrate a poner alt en las imagenes -->
             <img v-if="ImatgeOk" alt="" v-bind:src="PInfo.imatgeFront" class="card-imatge" />
             <img v-else alt="" src="@/assets/img/void.png" class="card-imatge" />
             <h3 class="card-atac">Atac: {{ PInfo.atac }} </h3>

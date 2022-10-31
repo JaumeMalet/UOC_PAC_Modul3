@@ -2,6 +2,7 @@
     //Imports
     import {ref} from 'vue'
     import TemaComp from '@/components/TemaComp.vue'
+    import { useRoute } from 'vue-router'
 
     //Definició i inicialització de variables
     const PokemonsInfo = ref([])
@@ -11,6 +12,9 @@
     const Tema = ref(localStorage.getItem('Tema'))
     const ImatgeFrontOk = ref(true)
     const ImatgeBackOk = ref(true)
+    const route = useRoute();
+
+    console.log(route.params)
 
     //Ataquem directament al tag 'body' afegint la classe segons el tema seleccionat
     //Serveix perquè es vegi tot el 'background-color' del mateix color
@@ -20,11 +24,18 @@
     PokemonsInfo.value = JSON.parse(localStorage.getItem("PokemonsInfo"))
 
     //Obtenir l'Id del pokemon de la URL
-    const PokeId = window.location.href.split('/')[window.location.href.split('/').length - 1]
+    // const PokeId = window.location.href.split('/')[window.location.href.split('/').length - 1]
+    const pokeId = route.params.id
+     // para Obtener los parametros pasados por la URL, vue tiene un hook llamando useRoute, no cal hacer este código hacker
+     // 1.- linea 5 importamos useRoute de vue-router
+     // 2.- linea 15 creamos una constante route y usamos el hook , esta función no devuelve un objeto route que tiene un atributo
+     //     con todos los parametros pasados por la URL.
+     // 3.- linea 28 obtenemos el id de params
+     // Pd.- Las variables deben ser en camelCase.
 
     //Obtenir l'index de l'array PokemonsInfo que coincideix amb la Id del pokemon de la URL
     for (let index = 0; index < PokemonsInfo.value.length; index++) {
-        if(Number(PokemonsInfo.value[index].id) === Number(PokeId)){
+        if(Number(PokemonsInfo.value[index].id) === Number(pokeId)){
             Id.value = index
             //No hi ha imatges per al pokemon >> mostrar imatge 'void.png'
             if(typeof PokemonsInfo.value[index].imatgeFront !== 'string') ImatgeFrontOk.value = false
